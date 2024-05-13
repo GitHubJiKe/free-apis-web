@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="a3e62ce5487f84cf3db1a578a9096da8" id="APIKEY">
+    <title>Poem Quest</title>
+    <script src="./jquery-3.7.1.min.js"></script>
+    <script src="./html2canvas.min.js"></script>
+    <script src="./FileSaver.min.js"></script>
+    <style>
+        @media (max-width:500px) {
+            #app {
+                margin: 0 auto !important;
+                width: 96% !important;
+            }
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .en,
+        .zh {
+            text-align: center;
+        }
+
+        select {
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        #colors {
+            display: flex;
+            gap: 4px
+        }
+
+        #colors>div {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            padding-top: 20vh;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        #refreshBtn {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        #app {
+            margin: 0 auto;
+            width: 20%;
+            user-select: none;
+        }
+
+        .download {
+            text-align: right;
+        }
+
+        #download {
+            cursor: pointer;
+            display: inline-block;
+            transform: rotate(0.25turn);
+        }
+
+        .poemQuest {
+            padding: 12px;
+            margin: 4px 0;
+            background-color: #1685a9;
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            outline: none;
+        }
+
+
+        .quest {
+            padding: 4px;
+        }
+
+        .answer {
+            padding: 4px;
+            border-bottom: 1px solid #000;
+            color: transparent;
+            min-width: 200px;
+        }
+
+        .answer:hover {
+            color: #000;
+        }
+
+        .source {
+            text-align: right;
+            padding: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./app.mjs"></script>
+</body>
+
+</html>

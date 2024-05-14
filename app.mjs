@@ -5,20 +5,25 @@ $(document).ready(() => {
     const ENG_EVERYDAY = 'https://apis.tianapi.com/everyday/index'
     const PYQ_URL = 'https://apis.tianapi.com/pyqwenan/index'
 
-    let apiURl = POEM_URL;
+    let apiURl = 'custom';
     $('body').html(`
     <div id="app">
         <select id="apiSelect" name="api">
-            ${[[POEM_URL, '诗词问答'], [ENG_QUOTE, '英语格言'], [ENG_EVERYDAY, '每日英语'], [PYQ_URL, '朋友圈文案']].map(v => `<option value="${v[0]}">${v[1]}</option>`).join('')}
+            ${[['custom', '自定义'], [POEM_URL, '诗词问答'], [ENG_QUOTE, '英语格言'], [ENG_EVERYDAY, '每日英语'], [PYQ_URL, '朋友圈文案']].map(v => `<option value="${v[0]}">${v[1]}</option>`).join('')}
         </select>
         <button id="refreshBtn">刷新</button>
         <div class="poemQuest"> </div>
         <div id="colors"></div>
+        <div id="fontColors"></div>
     </div>
     `)
     const colors = ['#1685a9', '#177cb0', '#065279', '#003472', '#4b5cc4', '#a1afc9', '#2e4e7e', '#4a4266', '#426666']
+    const fontColors = ['#fff', '#e9e7ef', '#f0f0f4', '#000', '#161823', '#312520']
     $('#colors').html(`
         ${colors.map(color => `<div style="background-color:${color}"></div>`).join('')}
+    `)
+    $('#fontColors').html(`
+        ${fontColors.map(color => `<div style="background-color:${color};border-radius:50%;"></div>`).join('')}
     `)
 
     $("#apiSelect").on('change', (event) => {
@@ -32,6 +37,11 @@ $(document).ready(() => {
         const target = $(event.target); // 获取点击的元素
         const backgroundColor = target.css("background-color"); // 获取元素的背景色
         $('.poemQuest').css('background-color', backgroundColor)
+    })
+    $('#fontColors>div').on('click', (event) => {
+        const target = $(event.target); // 获取点击的元素
+        const color = target.css("background-color"); // 获取元素的背景色
+        $('.poemQuest').css('color', color)
     })
 
     const savePng = (filename) => {
@@ -108,7 +118,7 @@ $(document).ready(() => {
         })
     }
 
-    fetchPoem()
+
 
     const fetchEngEveryDay = () => {
         $.ajax(`${apiURl}?key=${APIKEY}`).done((data) => {
@@ -130,24 +140,41 @@ $(document).ready(() => {
             }
         })
     }
+
+    const fetchCustom = () => {
+        const date = new Date()
+        $('.poemQuest').html(`
+        <h3>每日分享 - ${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} <i id="download" text="下载">→</i></h3>
+        <div class="poem" contenteditable>
+        </div>
+   `)
+
+        $('#download').on('click', () => {
+            savePng("shareEveryDay.png")
+        })
+    }
     const fetchData = () => {
+        if (apiURl === 'custom') {
+            return fetchCustom()
+        }
+
         if (apiURl === POEM_URL) {
-            fetchPoem()
+            return fetchPoem()
         }
 
         if (apiURl === ENG_QUOTE) {
-            fetchEngQuote()
+            return fetchEngQuote()
         }
 
         if (apiURl === ENG_EVERYDAY) {
-            fetchEngEveryDay()
+            return fetchEngEveryDay()
         }
 
         if (apiURl === PYQ_URL) {
-            fetchPyq()
+            return fetchPyq()
         }
     }
-
+    fetchData()
     $("#refreshBtn").on('click', fetchData)
 
 })

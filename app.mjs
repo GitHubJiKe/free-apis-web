@@ -17,7 +17,7 @@ $(document).ready(() => {
         <div id="fontColors"></div>
     </div>
     `)
-    const colors = ['#1685a9', '#177cb0', '#065279', '#003472', '#4b5cc4', '#a1afc9', '#2e4e7e', '#4a4266', '#426666']
+    const colors = ['#fff', '#1685a9', '#177cb0', '#065279', '#003472', '#4b5cc4', '#a1afc9', '#2e4e7e', '#4a4266', '#426666']
     const fontColors = ['#fff', '#e9e7ef', '#f0f0f4', '#000', '#161823', '#312520']
     $('#colors').html(`
         ${colors.map(color => `<div style="background-color:${color}"></div>`).join('')}
